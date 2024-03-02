@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://chxooy73as7af"]
+
+[ext_resource type="Texture2D" uid="uid://3wvd0v6vflf" path="res://assets/npcidle.png" id="1_76vyk"]
+[ext_resource type="Script" path="res://scenes/npc/npc.gd" id="1_ou3wa"]
+[ext_resource type="Texture2D" uid="uid://d1mbwwgbw27bt" path="res://assets/npc_move_1.png" id="2_aquuy"]
+[ext_resource type="Texture2D" uid="uid://bgit7swuegdn8" path="res://assets/npc_move_2.png" id="3_5s4xl"]
+[ext_resource type="Texture2D" uid="uid://dogxvusyqoxn3" path="res://assets/LightSprite.png" id="5_blket"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4vtai"]
+size = Vector2(10, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bxt5s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_76vyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_76vyk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_aquuy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5s4xl")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35816"]
+radius = 26.0192
+
+[node name="Npc" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_ou3wa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_4vtai")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bxt5s")
+animation = &"walk"
+frame_progress = 0.400003
+
+[node name="DetectionZone" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource("CircleShape2D_35816")
+debug_color = Color(0, 0.6, 0.129412, 0.419608)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("5_blket")
+texture_scale = 0.25
+
+[connection signal="body_entered" from="DetectionZone" to="." method="_on_detection_zone_body_entered"]

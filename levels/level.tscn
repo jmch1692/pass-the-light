@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cq58w3kgrp6mk"]
+
+[ext_resource type="PackedScene" uid="uid://ongrexhtktmd" path="res://scenes/system/maze_generator.tscn" id="1_bymp7"]
+[ext_resource type="Script" path="res://levels/level.gd" id="1_d2pfj"]
+[ext_resource type="PackedScene" uid="uid://cx16ldadt8bnk" path="res://scenes/UI/HUD.tscn" id="4_dps47"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_d2pfj")
+
+[node name="MazeGenerator" parent="." instance=ExtResource("1_bymp7")]
+unique_name_in_owner = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
+
+[node name="GameStatus" parent="." instance=ExtResource("4_dps47")]
+unique_name_in_owner = true
+
+[connection signal="clear_maze" from="MazeGenerator" to="." method="_on_maze_generator_clear_maze"]
+[connection signal="exit_point_ready" from="MazeGenerator" to="." method="_on_maze_generator_exit_point_ready"]
+[connection signal="npc_point_ready" from="MazeGenerator" to="." method="_on_maze_generator_npc_point_ready"]
+[connection signal="start_point_ready" from="MazeGenerator" to="." method="_on_start_point_ready"]

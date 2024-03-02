@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://e6saa2dp8by7"]
+
+[ext_resource type="Script" path="res://scenes/UI/debug.gd" id="1_mw2hs"]
+
+[node name="Debug" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mw2hs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NpcSpawnRate" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+text = "NPC's to spawn: "
+
+[node name="LevelFactor" type="Label" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 34.0
+offset_right = 103.0
+offset_bottom = 57.0
+size_flags_horizontal = 0
+text = "Level Factor: "
+
+[node name="MazeSizeFactor" type="Label" parent="CanvasLayer"]
+offset_left = -2.0
+offset_top = 103.0
+offset_right = 131.0
+offset_bottom = 126.0
+size_flags_horizontal = 0
+text = "Maze Size Factor: "
+
+[node name="Chance" type="Label" parent="CanvasLayer"]
+offset_left = -1.0
+offset_top = 69.0
+offset_right = 65.0
+offset_bottom = 92.0
+size_flags_horizontal = 0
+text = "Chance: "
+
+[node name="MazeWidth" type="Label" parent="CanvasLayer"]
+offset_left = -2.0
+offset_top = 142.0
+offset_right = 98.0
+offset_bottom = 165.0
+text = "Maze Width: "
+
+[node name="MazeHeight" type="Label" parent="CanvasLayer"]
+offset_left = 1.0
+offset_top = 181.0
+offset_right = 106.0
+offset_bottom = 204.0
+text = "Maze Height: "
+
+[node name="Retries" type="Label" parent="CanvasLayer"]
+offset_left = 3.0
+offset_top = 214.0
+offset_right = 108.0
+offset_bottom = 237.0
+text = "Retries: "
