@@ -6,8 +6,6 @@ var astar_grid : AStarGrid2D
 var start_path_at : Vector2i
 var finish_path_at : Vector2i
 
-signal maze_loading_ready()
-
 func _ready():
 	astar_grid = AStarGrid2D.new()
 	

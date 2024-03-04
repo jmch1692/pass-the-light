@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfqtepi7lg4x2"]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_lt8yj"]
+[ext_resource type="PackedScene" uid="uid://d3yi8445u2n0r" path="res://scenes/ui/sound_button.tscn" id="2_aa8xj"]
+[ext_resource type="Theme" uid="uid://dxcditpyjnw8h" path="res://resources/theme/theme.tres" id="3_5api8"]
+[ext_resource type="Texture2D" uid="uid://d1saoawy2e1te" path="res://assets/images/square.png" id="3_cruga"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_lt8yj")
+
+[node name="BackgroundShaderedSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(649, 383)
+scale = Vector2(100, 50)
+texture = ExtResource("3_cruga")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuBody" type="MarginContainer" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_5api8")
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/MainMenuBody"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MainMenuBody/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MainMenuBody/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_5api8")
+theme_override_font_sizes/font_size = 36
+text = "Pass the Light"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+
+[node name="PlayButton" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_aa8xj")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Play"
+
+[node name="OptionsButton" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_aa8xj")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Options"
+
+[node name="QuitButton" parent="Control/MainMenuBody/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_aa8xj")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Quit"

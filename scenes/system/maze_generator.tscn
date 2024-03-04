@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://ongrexhtktmd"]
+[gd_scene load_steps=11 format=3 uid="uid://ongrexhtktmd"]
 
 [ext_resource type="Script" path="res://scenes/system/maze_generator.gd" id="1_6ecdi"]
 [ext_resource type="Texture2D" uid="uid://bq3twvt60f3q6" path="res://assets/monochrome_tilemap.png" id="2_tss3g"]
 [ext_resource type="Script" path="res://scenes/system/path_finding.gd" id="3_4na3g"]
 [ext_resource type="Texture2D" uid="uid://2fpy472lkfxv" path="res://assets/sprite_next_stage_down.png" id="4_xm3s7"]
 [ext_resource type="Script" path="res://scenes/system/spawn_manager.gd" id="5_ohcxl"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_8umdu"]
+polygon = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4wpfq"]
 resource_name = "terrain"
@@ -219,6 +222,7 @@ separation = Vector2i(1, 1)
 8:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:3/0/physics_layer_0/angular_velocity = 0.0
 9:3/0 = 0
+9:3/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_8umdu")
 9:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 9:3/0/physics_layer_0/angular_velocity = 0.0
 9:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
@@ -1216,6 +1220,7 @@ separation = Vector2i(1, 1)
 [sub_resource type="TileSet" id="TileSet_ppiyh"]
 tile_layout = 4
 tile_offset_axis = 1
+occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4wpfq")
 
@@ -1265,5 +1270,4 @@ default_color = Color(0, 0.610214, 0.615034, 1)
 [node name="SpawnManager" type="Node2D" parent="."]
 script = ExtResource("5_ohcxl")
 
-[connection signal="maze_loading_ready" from="TileMap" to="." method="_on_tile_map_maze_loading_ready"]
 [connection signal="body_entered" from="TileMap/ExitPoint" to="." method="_on_exit_point_body_entered"]

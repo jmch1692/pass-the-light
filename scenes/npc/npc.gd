@@ -21,14 +21,12 @@ func _physics_process(_delta):
 		animation.play("walk")
 		if !saved:
 			SignalBus.npc_saved.emit()
-			light.texture_scale = 0.05
 			saved = true
 	else:
 		velocity = Vector2.ZERO
 		animation.play("idle")
 		if saved:
 			SignalBus.npc_lost.emit()
-			light.texture_scale = 0.25
 			saved = false
 		player = null
 	move_and_slide()

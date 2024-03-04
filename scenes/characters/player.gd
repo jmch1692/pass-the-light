@@ -13,6 +13,10 @@ enum Status {
 }
 
 var status : Status
+var light_stats : Dictionary = {
+	energy = 1,
+	light_range = 0.15
+}
 
 func _ready():
 	status = Status.HEALTHY
@@ -30,13 +34,18 @@ func _on_activated_trap(_trap_type):
 			print("Invalid trap type")
 		
 func _on_npc_saved():
-	if status != Status.BLIND:
-		light.energy += 0.5
-		light.texture_scale += 0.10
+		light_stats["energy"] += 0.5
+		light_stats["light_range"] += 0.10
+		if status != Status.BLIND:
+			light.energy = light_stats["energy"]
+			light.texture_scale = light_stats["light_range"]
 	
 func _on_npc_lost():
-	light.energy = maxf(1.0, (light.energy - 0.5))
-	light.texture_scale = maxf(0.15, (light.texture_scale - 0.10))
+	light_stats["energy"] -= 0.5
+	light_stats["light_range"] -= 0.10
+	if status != Status.BLIND:
+		light.energy = light_stats["energy"]
+		light.texture_scale = light_stats["light_range"]
 
 func _process(_delta: float) -> void:
 	var direction: = get_direction()
@@ -50,6 +59,10 @@ func _process(_delta: float) -> void:
 		move_and_slide()
 	else:
 		_animated_sprite.play("idle")
+		
+	if status == Status.HEALTHY:
+		light.energy = light_stats["energy"]
+		light.texture_scale = light_stats["light_range"]
 		
 #disable diagonal movement
 func get_direction() -> Vector2:

@@ -5,6 +5,7 @@ var level_increase_factor : float = GlobalGameSettings.game_settings["level_incr
 var maze_increase_factor : int = GlobalGameSettings.game_settings["maze_increase_factor"]
 
 var player_scene = preload("res://scenes/characters/player.tscn")
+var pause_menu = preload("res://scenes/ui/pause_menu.tscn")
 var saved_npcs : int = 0
 var exit_point_ready : bool = false
 
@@ -20,6 +21,10 @@ func refresh_level():
 func _input(_event):
 	if Input.is_action_just_pressed("ui_reset"):
 		refresh_level()
+	
+	if Input.is_action_just_pressed("pause"):
+		pause_menu = pause_menu.instantiate()
+		add_child(pause_menu)
 
 #TODO: Delegate this to spawn manager
 func _on_start_point_ready(start_position: Vector2):

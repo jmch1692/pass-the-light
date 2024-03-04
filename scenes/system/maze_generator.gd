@@ -23,7 +23,6 @@ signal npc_point_ready(npc_position)
 #signals when maze is playable
 signal player_hit_finish_point
 signal debug_values(npc_spawn_rate, level_factor, maze_size_factor, chance, maze_width, maze_height, retries)
-signal bubbled_maze_loading_ready()
 signal clear_maze(retries)
 
 # Tilemap constants
