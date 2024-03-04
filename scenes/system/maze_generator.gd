@@ -59,6 +59,8 @@ func set_difficulty(factor: float, maze_factor: float):
 	var maze_factori = floori(maze_factor)
 	map_height += maze_factori + randi_range(-maze_factori, 2 * maze_factori)
 	map_width += maze_factori + randi_range(-maze_factori, 2 * maze_factori)
+	GlobalGameSettings.game_settings["map_height"] = map_height
+	GlobalGameSettings.game_settings["map_width"] = map_width
 	chance *= factor
 	#debug_values.emit(max_npc_to_place, level_factor, maze_factori, chance, map_width, map_height, GlobalGameSettings.game_settings["maze_retries"])
 

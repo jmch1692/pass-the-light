@@ -8,6 +8,7 @@ var max_npc_to_place : int = minimum_npc_to_place
 
 #Pre-loads
 var npc_scene = preload("res://scenes/npc/npc.tscn")
+var trap_scene = preload("res://scenes/traps/hidden_trap.tscn")
 
 #Nodes
 @onready var tile_map = %TileMap
@@ -19,6 +20,10 @@ var final_free_points : Array[Vector2]
 var level_factor : float = 0.0
 var rng = RandomNumberGenerator.new()
 var npc : CharacterBody2D = null
+var trap_types : Array[TrapType.Type] = [
+	TrapType.Type.BLINDNESS,
+	TrapType.Type.CONFUSION
+]
 
 func _ready():
 	SignalBus.spawn_points_ready.connect(_on_spawn_points_ready.bind())
@@ -62,9 +67,10 @@ func locate_spawn_points(potential_spawn_points : Array[Vector2]):
 		potential_spawn_points.filter(func(point): return point != npc_spawn_point)
 	
 	rng.randomize()
-	for trap in number_of_traps:
+	for potential_trap in number_of_traps:
+		var trap_selected = trap_types.pick_random()
 		var trap_spawn_point = potential_spawn_points.pick_random()
-		spawn_trap(trap_spawn_point)
+		spawn_trap(trap_spawn_point, trap_selected)
 		potential_spawn_points.filter(func(point): return point != trap_spawn_point)
 
 func spawn_npc(spawn_point: Vector2):
@@ -72,5 +78,8 @@ func spawn_npc(spawn_point: Vector2):
 	self.call_deferred("add_sibling", npc)
 	npc.position = tile_map.map_to_local(spawn_point)
 
-func spawn_trap(spawn_point: Vector2):
-	pass
+func spawn_trap(spawn_point: Vector2, trap_selected: TrapType.Type):
+	var trap : Trap = trap_scene.instantiate()
+	trap.trap_type = trap_selected
+	self.call_deferred("add_sibling", trap)
+	trap.position = tile_map.map_to_local(spawn_point)

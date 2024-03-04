@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtwyurq1wr4f2"]
+
+[ext_resource type="Script" path="res://scenes/debug/ai_entity.gd" id="1_b12t6"]
+[ext_resource type="Texture2D" uid="uid://8oa1cg7jn1iu" path="res://icon.svg" id="2_layi3"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3vyv5"]
+vertices = PackedVector2Array(291, 326, 36, 775, -2, -10, 1339, 9, 848, 275, 1153, 732, 658, 741)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3, 4), PackedInt32Array(4, 3, 5, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -10, 1339, 9, 1153, 732, 658, 741, 848, 275, 291, 326, 36, 775)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uw00"]
+size = Vector2(127, 127)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-50, -45)
+navigation_polygon = SubResource("NavigationPolygon_3vyv5")
+
+[node name="ai_entity" type="CharacterBody2D" parent="." node_paths=PackedStringArray("movement_target")]
+script = ExtResource("1_b12t6")
+movement_target = NodePath("../Marker2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="ai_entity"]
+texture = ExtResource("2_layi3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ai_entity"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_1uw00")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="ai_entity"]
+debug_enabled = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(907, 497)

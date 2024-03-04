@@ -47,9 +47,10 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_4vtai")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_bxt5s")
 animation = &"walk"
-frame_progress = 0.400003
+frame_progress = 0.588871
 
 [node name="DetectionZone" type="Area2D" parent="."]
 unique_name_in_owner = true

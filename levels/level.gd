@@ -27,12 +27,6 @@ func _on_start_point_ready(start_position: Vector2):
 	self.add_child.call_deferred(player)
 	player.position = start_position
 
-#TODO: Delegate this to spawn manager
-#func _on_maze_generator_npc_point_ready(npc_position):
-	#npc = npc_scene.instantiate()
-	#self.add_child.call_deferred(npc)
-	#npc.position = npc_position
-
 func _on_maze_generator_exit_point_ready():
 	await get_tree().create_timer(1.0).timeout
 	if !exit_point_ready:

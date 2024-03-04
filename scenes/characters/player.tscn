@@ -56,3 +56,9 @@ zoom = Vector2(2, 2)
 [node name="PointLight2D" type="PointLight2D" parent="."]
 texture = ExtResource("6_wn7wk")
 texture_scale = 0.15
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+gravity = Vector2(0, 0)

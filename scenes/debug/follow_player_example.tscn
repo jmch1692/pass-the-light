@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://byy0xc7k83w8"]
+
+[ext_resource type="Script" path="res://scenes/debug/ai_entity_follow.gd" id="1_pjt37"]
+[ext_resource type="Texture2D" uid="uid://8oa1cg7jn1iu" path="res://icon.svg" id="2_7p3vm"]
+[ext_resource type="Script" path="res://scenes/debug/Player.gd" id="3_0yowv"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_p7xnb"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(4, -9, 358, 6, 337, 341, 847, 384, 842, -11, 1157, -7, 1155, 646, 3, 649)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_530xn"]
+size = Vector2(127, 127)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_p7xnb")
+
+[node name="ai_entity" type="CharacterBody2D" parent="." node_paths=PackedStringArray("movement_target")]
+script = ExtResource("1_pjt37")
+movement_target = NodePath("../Player")
+
+[node name="Sprite2D" type="Sprite2D" parent="ai_entity"]
+texture = ExtResource("2_7p3vm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ai_entity"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_530xn")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="ai_entity"]
+debug_enabled = true
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(971, 133)
+script = ExtResource("3_0yowv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_7p3vm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_530xn")

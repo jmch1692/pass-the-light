@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1c4l04i5f4qu"]
+
+[ext_resource type="Texture2D" uid="uid://drdp7nixqdysy" path="res://assets/trap_sleep.png" id="1_bkmr8"]
+[ext_resource type="Script" path="res://scenes/traps/hidden_trap.gd" id="1_c4apq"]
+[ext_resource type="Texture2D" uid="uid://d4mlb6n3jqiw8" path="res://assets/trap_activated.png" id="2_ngfov"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebm5t"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_ub5kn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_bkmr8")]
+}
+
+[sub_resource type="Animation" id="Animation_88206"]
+resource_name = "active"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_bkmr8"), ExtResource("2_ngfov"), ExtResource("1_bkmr8"), ExtResource("2_ngfov"), ExtResource("1_bkmr8"), ExtResource("2_ngfov"), ExtResource("1_bkmr8"), ExtResource("2_ngfov"), ExtResource("1_bkmr8"), ExtResource("2_ngfov"), ExtResource("1_bkmr8")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjr5x"]
+_data = {
+"RESET": SubResource("Animation_ub5kn"),
+"active": SubResource("Animation_88206")
+}
+
+[node name="HiddenTrap" type="Node2D"]
+script = ExtResource("1_c4apq")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ebm5t")
+debug_color = Color(0.713726, 0.482353, 0.0941176, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0.0588235)
+texture = ExtResource("1_bkmr8")
+
+[node name="Animator" type="AnimationPlayer" parent="Area2D/Sprite2D"]
+unique_name_in_owner = true
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_pjr5x")
+}
+speed_scale = 2.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="animation_finished" from="Area2D/Sprite2D/Animator" to="." method="_on_animation_player_animation_finished"]

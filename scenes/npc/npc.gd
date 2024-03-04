@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var run_speed : int = 20
 @onready var detection_zone : CollisionShape2D = %DetectionZone/CollisionShape2D
+@onready var animation : AnimatedSprite2D = %AnimatedSprite2D
 @onready var light : PointLight2D = $PointLight2D
 
 var player = null
@@ -14,13 +15,17 @@ func _ready():
 
 func _physics_process(_delta):
 	if player and is_within_radius(player.position):
+		#TODO: Use a NavigationAgent2D to follow the player using astar algorithm.
+		# Although, I like the 'dumbness' of the npcs
 		velocity = position.direction_to(player.position) * run_speed
+		animation.play("walk")
 		if !saved:
 			SignalBus.npc_saved.emit()
 			light.texture_scale = 0.05
 			saved = true
 	else:
 		velocity = Vector2.ZERO
+		animation.play("idle")
 		if saved:
 			SignalBus.npc_lost.emit()
 			light.texture_scale = 0.25
